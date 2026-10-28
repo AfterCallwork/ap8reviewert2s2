@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="fil">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AP8 Ikalawang Termino – Pagsusulit</title>
+<style>
+:root{--bg:#f6f5f1;--card:#fff;--tx:#1d2330;--mut:#667085;--bd:#d9d6cc;--ac:#1f4e8c;--gr:#1e9e56;--grb:#dff5e8;--rd:#d93a3a;--rdb:#fde4e4;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14171d;--card:#1e232c;--tx:#eceff4;--mut:#9aa4b5;--bd:#363d4a;--ac:#6ea8f0;--gr:#4cd08a;--grb:#173a29;--rd:#ff7070;--rdb:#41201f}}
+:root[data-theme="dark"]{--bg:#14171d;--card:#1e232c;--tx:#eceff4;--mut:#9aa4b5;--bd:#363d4a;--ac:#6ea8f0;--gr:#4cd08a;--grb:#173a29;--rd:#ff7070;--rdb:#41201f}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.5;min-height:100vh;display:flex;flex-direction:column;align-items:center}
+main{width:100%;max-width:720px;padding:20px 16px 12px;flex:1}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:22px 20px}
+h1{font-size:1.35rem;margin:0 0 4px}
+.sub{color:var(--mut);margin:0 0 16px;font-size:.95rem}
+.bar{height:8px;background:var(--bd);border-radius:6px;overflow:hidden;margin:6px 0 16px}
+.bar i{display:block;height:100%;background:var(--ac);transition:width .25s}
+.meta{display:flex;justify-content:space-between;color:var(--mut);font-size:.9rem}
+.q{font-size:1.08rem;font-weight:600;margin:0 0 14px}
+.opt{display:block;width:100%;text-align:left;font:inherit;color:inherit;background:var(--card);border:2px solid var(--bd);border-radius:10px;padding:12px 14px;margin:0 0 10px;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--ac)}
+.opt:disabled{cursor:default}
+.opt.ok{background:var(--grb);border-color:var(--gr);color:var(--gr);font-weight:600}
+.opt.no{background:var(--rdb);border-color:var(--rd);color:var(--rd);font-weight:600}
+.btn{font:inherit;font-weight:600;background:var(--ac);color:#fff;border:0;border-radius:10px;padding:12px 22px;cursor:pointer;margin-top:6px}
+:root:not([data-theme="light"]) .btn{color:#0b1220}
+.big{font-size:2.6rem;font-weight:700;margin:8px 0}
+footer{width:100%;text-align:center;padding:14px 16px calc(14px + env(safe-area-inset-bottom,0px));color:var(--mut);font-size:.9rem;border-top:1px solid var(--bd)}
+.inp{display:block;width:100%;font:inherit;color:var(--tx);background:var(--card);border:2px solid var(--bd);border-radius:10px;padding:12px 14px;margin:6px 0 4px}
+.inp:focus{outline:none;border-color:var(--ac)}
+.err{color:var(--rd);font-size:.9rem;min-height:1.3em;margin:2px 0 6px}
+.tm{font-weight:700;font-variant-numeric:tabular-nums}
+.tm.low{color:var(--rd)}
+.tout{background:var(--rdb);color:var(--rd);border-radius:10px;padding:10px 14px;margin:0 0 10px;font-weight:600}
+.btn2{background:transparent;color:var(--ac);border:2px solid var(--ac);margin-left:8px}
+:root:not([data-theme="light"]) .btn2{color:var(--ac)}
+.tw{overflow-x:auto;margin-top:12px;text-align:left}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{padding:8px 10px;border-bottom:1px solid var(--bd);text-align:left;white-space:nowrap}
+th{color:var(--mut);font-weight:600}
+tr.me td{background:var(--grb);font-weight:600}
+h2{font-size:1.05rem;margin:20px 0 4px;text-align:left}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<footer>Created by: K. Rocero</footer>
+<script>
+// Format: [tanong, TAMANG SAGOT, mali1, mali2, mali3]  (hinahalo ang pagkakasunod-sunod sa bawat pagkuha)
+var Q=[
+["Sino ang pilosopong tinaguriang “Ama ng Liberalismo” na nagsabing ang bawat tao ay may likas na karapatan sa buhay, kalayaan, at ari-arian?","John Locke","Jean-Jacques Rousseau","Baron de Montesquieu","Thomas Hobbes"],
+["Isinigaw ng mga kolonistang Amerikano ang “No Taxation Without Representation.” Paano ito iniuugnay sa mga ideya ng Enlightenment?","Ayon kay Locke, kailangan ng pahintulot ng mamamayan sa pamahalaan kaya mali ang buwis na walang kinatawan.","Tumutol sila sa lahat ng buwis dahil naniniwala silang walang pamahalaang may karapatang magpataw nito.","Nais nilang ibalik ang ganap na kapangyarihan ng hari ng Britain upang maging maayos ang pagbubuwis sa kolonya.","Sinunod nila ang ideya ni Hobbes na dapat isuko ng mamamayan ang lahat ng karapatan sa makapangyarihang pinuno."],
+["Alin sa tatlong Estate ng France ang bumubuo sa karamihan ng populasyon ngunit may pinakamabigat na pasanin sa buwis?","Ikatlong Estate (karaniwang tao)","Unang Estate (mga pari at klero)","Ikalawang Estate (mga maharlika)","Ang hari at ang kaniyang pamilya sa palasyo"],
+["Alin ang naglalahad ng ilan sa mga sanhi ng Rebolusyong Pranses?","Mabigat na utang ng pamahalaan, mataas na presyo ng tinapay, at mabigat na buwis sa Ikatlong Estate","Pagbaba ng buwis, sapat na pagkain, pantay na representasyon, at limitadong kapangyarihan ng hari","Malakas na ekonomiya, kaunting utang ng pamahalaan, pantay na pribilehiyo, at maayos na kalakalan","Pagtatag ng Konstitusyon, Deklarasyon ng mga Karapatan, pagbagsak ng Bastille, at pagbitay kay Louis XVI"],
+["Alin ang naglalarawan sa mga katangian ng isang bansang estado (nation-state) sa Europa?","Mamamayang may iisang wika, kultura, at kasaysayan, may sentralisadong pamahalaan, at may pagkakaisa","Mamamayang walang iisang wika at kultura, walang pamahalaan, at pinamumunuan ng ibang bansa","Maraming pamahalaang hindi nagkakaisa, walang malinaw na teritoryo, at walang pambansang pagkakakilanlan","Mga pangkat na walang batas, walang pamahalaan, walang teritoryo, at walang pagkakakilanlan"],
+["Paano nakaugnay ang mabigat na buwis at kawalan ng representasyon ng Ikatlong Estate sa pagsiklab ng Rebolusyong Pranses?","Pasan nila ang buwis ngunit walang boses sa pamahalaan, kaya lumalim ang galit nila hanggang sa pag-aalsa.","Tinanggap ng Ikatlong Estate ang mabigat na buwis kaya lalong lumakas ang kapangyarihan ng hari at maharlika.","Nagkaisa ang tatlong Estate sa pagbabayad ng buwis kaya walang naganap na pag-aalsa sa France.","Nawalan ng interes ang Ikatlong Estate sa pamahalaan kaya hindi sila nakilahok sa anumang pagbabago."],
+["Paano nakaimpluwensiya ang mga ideya ng Enlightenment sa Rebolusyong Pranses?","Ang mga ideya ng kalayaan at likas na karapatan ang naging batayan sa paghamon sa absolutong monarkiya.","Pinatibay nito ang paniniwala ng mga Pranses na hindi dapat kuwestiyunin ang kapangyarihan ng hari.","Ipinagbawal nito ang pagtalakay sa karapatan ng mamamayan kaya natigil ang mga kilusan para sa pagbabago.","Naging dahilan ito upang lumakas ang mga pribilehiyo ng Unang at Ikalawang Estate sa lipunan."],
+["Paano binago ng Rebolusyong Pranses ang ugnayan ng hari at ng mamamayan?","Napunta sa mamamayan ang batayan ng kapangyarihan, kaya pantay ang karapatan sa harap ng batas.","Mas lumawak ang kapangyarihan ng hari at lalong humigpit ang kaniyang kontrol sa buong mamamayan.","Naging pag-aari ng hari ang lahat ng karapatan ng mamamayan at ng buong lupain ng France.","Walang pagbabagong naganap sa ugnayan nila dahil nanatili ang tatlong Estate sa France."],
+["Sa isang kathang-isip na bansa, 10% ng mamamayan ang hindi nagbabayad ng buwis at hawak ang lahat ng mataas na posisyon, samantalang ang 90% ay nagbabayad ng mabigat na buwis at walang boses sa pamahalaan. Batay sa aral ng Rebolusyong Pranses, ano ang pinakamalamang na mangyari kung walang reporma?","Lalakas ang galit ng nakararami at maaaring humantong sa pag-aalsa o pagbabago ng sistema.","Mananatiling matatag ang bansa dahil nasanay na ang mga mamamayan sa hindi pantay na sistema ng pamahalaan.","Kusang magbabayad ng buwis ang 10% dahil sa pagmamahal nila sa bayan at pagnanais na makatulong.","Hihingi ang pamahalaan ng dagdag na buwis sa 90% hanggang tuluyang matahimik ang buong lipunan."],
+["Anong bansa sa Africa ang matagumpay na nanatiling malaya laban sa pagtatangka ng Italy na sakupin ito sa Battle of Adwa?","Ethiopia","Madagascar","Congo","Nigeria"],
+["Ano ang tawag sa karapatan ng isang bansa na mamahala sa sarili nitong teritoryo at mamamayan nang walang hindi makatarungang pakikialam ng ibang bansa?","Soberanya","Interbensiyon","Imperyalismo","Kolonyalismo"],
+["Alin ang naglalahad ng mga paraan ng pagtugon ng mga Asyano sa imperyalismong Europeo?","Armadong paglaban, reporma, mapayapang pagkilos, at kilusang makabayan","Pagtanggap, pagsuko, pagbabayad ng buwis, at paglisan sa sariling bansa nang walang pagtutol","Pakikipagkalakalan, pag-aangkat ng armas, at pagpapalawak ng teritoryo sa karatig-bansa","Pagtulong sa mananakop, pagbabago ng wika, at pagtalikod sa sariling kultura at tradisyon"],
+["Alin ang mga dahilan ng paglaban ng mga Aprikano sa imperyalismong Europeo?","Pagtatanggol sa lupain, kalayaan, sariling pamahalaan, at kultura at tradisyon","Pagtanggap ng dayuhang pamahalaan, pagpapalit ng relihiyon, at pagsuko ng teritoryo","Pagkakaroon ng mas mataas na buwis, pag-aangkat ng produkto, at pagbabago ng wika","Pagkahilig sa dayuhang kultura, pagtulong sa mananakop, at paghahati ng teritoryo"],
+["Paano nauugnay ang pagkawala ng kontrol sa teritoryo at likas na yaman ng mga bansa sa Asya sa pag-usbong ng nasyonalismo?","Dahil nawalan ng kontrol, nabuo ang mga kilusang makabayan para ipaglaban ang kanilang kalayaan.","Naging kontento ang mga Asyano sa pamamahala ng dayuhan kaya humina ang kanilang pagkakakilanlan.","Tumigil sa pagtutol ang mga mamamayan at umasa na lamang sa tulong at proteksiyon ng mananakop.","Nagkahati-hati ang mga mamamayan at tinalikuran nila ang kanilang wika, kultura, at pagkakakilanlan."],
+["Paano nauugnay ang pagtutol ng Mexico sa French Intervention sa soberanya at nasyonalismo?","Ipinagtanggol ng mga Mexicano ang sariling pamahalaan, kaya lumakas ang nasyonalismo at kasarinlan.","Tinanggap ng mga Mexicano ang interbensiyon kaya lalong lumakas ang kanilang soberanya bilang bansa.","Hindi ito nakaapekto sa damdaming makabansa dahil panloob na usapin lamang ng France ang interbensiyon.","Humingi ang mga Mexicano ng tulong sa France upang mapalawak ang kanilang teritoryo sa Latin America."],
+["Isang maliit na bansa ngayon ang nakararanas ng pakikialam ng isang makapangyarihang dayuhang bansa sa pamahalaan nito. Batay sa mga aral ng Asya, Africa, at Latin America, alin ang pinakamainam na hakbang?","Pagkaisahin ang mamamayan, ipagtanggol ang soberanya, at piliin ang tugong angkop sa bansa.","Sumunod na lamang sa makapangyarihang bansa upang maiwasan ang gulo at ang mas malalang suliranin.","Gumamit palagi ng armas, anuman ang kalagayan ng bansa, dahil ito ang tanging paraan ng pagtatanggol.","Iwasang pag-usapan ang isyu sa publiko at sa ibang bansa upang hindi lalong lumala ang sitwasyon."],
+["Alin ang pinakamahusay na pangkalahatang kongklusyon mula sa karanasan ng Asya, Africa, at Latin America sa imperyalismo?","Magkakaiba ang paraan ngunit iisa ang layunin: ipagtanggol ang kalayaan at sariling pamahalaan.","Iisa lamang ang epektibong paraan ng pagtugon sa imperyalismo, at iyon ay ang armadong paglaban.","Hindi nakaapekto ang imperyalismo sa politika, ekonomiya, at kultura ng mga nasakop na bansa.","Umusbong lamang ang nasyonalismo sa mga bansang hindi nasakop ng mga kapangyarihang Europeo."],
+["Ano ang tawag sa matinding pagmamalaki, katapatan, at pagpapahalaga ng isang tao sa kaniyang bansa, wika, kultura, at kasaysayan?","Nasyonalismo","Imperyalismo","Absolutismo","Kolonyalismo"],
+["Aling pangyayari noong Hulyo 14, 1789 ang naging simbolo ng paglaban ng mga mamamayan sa mapaniil na monarkiya?","Pagbagsak ng Bastille","Tennis Court Oath","Reign of Terror","Pagbitay kay Louis XVI"],
+["Alin ang tamang pagkakasunod-sunod ng mga pangyayari sa Rebolusyong Pranses mula pinakamaaga hanggang pinakahuli?","Tennis Court Oath → Pagbagsak ng Bastille → Pagbitay kay Louis XVI → Reign of Terror","Pagbagsak ng Bastille → Tennis Court Oath → Reign of Terror → Pagbitay kay Louis XVI","Reign of Terror → Tennis Court Oath → Pagbagsak ng Bastille → Pagbitay kay Louis XVI","Pagbitay kay Louis XVI → Tennis Court Oath → Reign of Terror → Pagbagsak ng Bastille"],
+["Alin ang tamang pagpapangkat ng mga pamana ng Rebolusyong Pranses?","Politikal: malayang halalan at karapatang magpahayag; Sosyo-ekonomiko: pantay sa harap ng batas","Politikal: pantay sa harap ng batas; Sosyo-ekonomiko: malayang halalan at karapatang magpahayag","Politikal: pagwawakas ng pribilehiyo batay sa katayuan; Sosyo-ekonomiko: malayang halalan","Politikal: buwis para sa Ikatlong Estate lamang; Sosyo-ekonomiko: ganap na kapangyarihan ng hari"],
+["Bagama’t layunin ni Napoleon na palawakin ang kapangyarihan ng France, paano nakatulong ang kaniyang mga pananakop sa pagkalat ng nasyonalismo?","Kumalat sa mga nasakop ang ideya ng pagkakapantay-pantay at nasyonalismo, kaya lumakas ang damdaming makabansa.","Nawala ang pagkakakilanlan ng mga Europeo dahil sa pananakop kaya tuluyang nawala ang nasyonalismo sa Europa.","Napigilan ni Napoleon ang pagkalat ng lahat ng bagong ideya mula sa France patungo sa iba pang bahagi ng Europa.","Ibinalik ni Napoleon ang piyudalismo at mga pribilehiyo ng maharlika sa lahat ng nasakop na bansa sa Europa."],
+["Ano ang ipinahihiwatig ng Reign of Terror tungkol sa ugnayan ng radikal na pagbabago at karapatang pantao?","Maaaring malabag ang karapatang pantao at due process kapag hindi napangangalagaan ang buhay sa pagbabago.","Laging napangangalagaan ang karapatang pantao sa panahon ng radikal na pagbabago sa lipunan at pamahalaan.","Walang kaugnayan ang karapatang pantao sa mga pagbabagong pampolitika at pagbabago ng pamahalaan sa isang bansa.","Ang pagpaslang sa mga kalaban ng rebolusyon ang pinakamabisang paraan upang makamit ang tunay na katarungan."],
+["Sa isang demokratikong bansa, kaunti ang kabataang nakikilahok sa mga usaping panlipunan at laganap ang maling impormasyon tungkol sa bansa. Ano ang pinakamalamang na maging epekto nito sa pagkakaisa at demokrasya sa hinaharap?","Hihina ang pakikilahok at pagkakaisa, kaya kailangan ang edukasyon at tamang impormasyon para sa mamamayan.","Lalakas ang pagkakaisa ng bansa dahil mas kaunti ang mga mamamayang nagtatalo at nagbibigay ng opinyon sa isyu.","Hindi ito makaaapekto sa demokrasya dahil ang pagboto lamang sa halalan ang tanging mahalaga sa isang bansa.","Awtomatikong titibay ang nasyonalismo dahil may iisang impormasyong kumakalat sa buong bansa at sa mga mamamayan."],
+["Kung bubuo ka ng mungkahing solusyon upang mapalakas ang nasyonalismo sa ating bansa ngayon, alin ang pinakamainam batay sa mga aral ng Rebolusyong Pranses at ng panahon ni Napoleon?","Itaguyod ang pagkakaisa batay sa pantay na karapatan, pakikilahok ng mamamayan, at pagpapahalaga sa sariling kultura.","Ipagbawal ang pakikipag-ugnayan sa ibang bansa at kultura upang manatiling dalisay ang pagkakakilanlan ng mga mamamayan.","Ibigay ang lahat ng kapangyarihan sa iisang pinuno upang walang magtalo at mabilis ang pagpapasya sa bansa.","Palawakin ang teritoryo ng bansa sa pamamagitan ng pananakop upang maipakita ang lakas at kapangyarihan nito."],
+// ---- 25 karagdagang tanong ----
+["Sino ang pilosopong Pranses na sumulat ng “The Social Contract” at nagsabing ang kapangyarihan ng pamahalaan ay nagmumula sa kalooban ng mamamayan?","Jean-Jacques Rousseau","Voltaire","John Locke","Thomas Hobbes, may-akda ng Leviathan"],
+["Anong ideya ni Baron de Montesquieu ang naging batayan ng maraming makabagong pamahalaan?","Paghahati ng kapangyarihan ng pamahalaan sa iba’t ibang sangay","Ganap na kapangyarihan ng hari sa lahat ng usapin","Pamamahala ng iisang partido sa buong bansa","Pagbibigay ng buong kapangyarihan sa simbahan at sa hari upang walang magtunggali"],
+["Anong dokumento ang isinulat ni Thomas Jefferson noong 1776 na nagpahayag ng paghiwalay ng 13 kolonya sa Britain?","Declaration of Independence","Magna Carta","Treaty of Paris","Declaration of the Rights of Man"],
+["Anong uri ng pamahalaan ang umiiral sa France bago ang rebolusyon kung saan ang hari ang may ganap na kapangyarihan?","Absolutong monarkiya","Demokrasya","Republika","Konstitusyonal na monarkiya"],
+["Sino ang hari ng France na pinatalsik at pinatawan ng parusang kamatayan sa panahon ng Rebolusyong Pranses?","Louis XVI","Louis XIV","Napoleon Bonaparte","Charles X"],
+["Ano ang Deklarasyon ng mga Karapatan ng Tao at Mamamayan na inilabas noong 1789?","Dokumentong nagpahayag ng kalayaan at pantay na karapatan ng mga mamamayan","Kasunduang nagtapos sa digmaan ng France at Britain","Batas na nagdagdag ng buwis sa Ikatlong Estate","Utos ng hari na nagbawal sa pagpupulong ng mga kinatawan ng Ikatlong Estate sa buong France"],
+["Ano ang Tennis Court Oath?","Panunumpa ng mga kinatawan ng Ikatlong Estate na hindi maghihiwalay hangga’t hindi nakabubuo ng konstitusyon","Panunumpa ng hari na babawasan ang buwis ng mga karaniwang tao","Kasunduan ng tatlong Estate na maghati sa kapangyarihan ng simbahan at ng hari upang mapanatili ang kapayapaan sa France","Panunumpa ng mga sundalo na ipagtatanggol ang Bastille"],
+["Anong titulo ang kinuha ni Napoleon Bonaparte noong 1804 nang makuha niya ang ganap na kapangyarihan sa France?","Emperador ng France","Hari ng France","Pangulo ng France","Konsul ng Britain at tagapayo ng hari"],
+["Ano ang Napoleonic Code?","Pinag-isang kodigo ng batas na nagtaguyod ng pantay na karapatan sa harap ng batas","Batas na nagbalik sa mga pribilehiyo ng maharlika","Kasunduang nagtapos sa mga digmaan sa Europa","Utos na nagbabawal sa pagkalat ng mga ideya ng Enlightenment sa mga nasakop na bansa ng France"],
+["Anong labanan noong 1815 ang tuluyang nagpabagsak kay Napoleon Bonaparte?","Labanan sa Waterloo","Labanan sa Austerlitz","Labanan sa Adwa","Labanan sa Trafalgar"],
+["Ano ang imperyalismo?","Pananakop at pagkontrol ng makapangyarihang bansa sa ibang bansa o teritoryo","Pagtatatag ng pamahalaang pinamumunuan ng mismong mamamayan upang magkaroon ng pantay na karapatan ang lahat","Pantay at mapayapang kalakalan ng dalawang bansa","Pagtatanggol ng isang bansa sa sarili nitong teritoryo"],
+["Sino ang pinuno ng Ethiopia na namuno sa tagumpay laban sa Italy sa Battle of Adwa?","Emperador Menelik II","Shaka Zulu","Samori Toure","Haring Leopold II ng Belgium, tagapamahala ng Congo"],
+["Sino ang nagtatag ng Katipunan noong 1892 na naglayong makamit ang kalayaan ng Pilipinas sa pamamagitan ng armadong paglaban?","Andres Bonifacio","Jose Rizal","Marcelo H. del Pilar","Apolinario Mabini"],
+["Alin ang halimbawa ng mapayapang pagkilos ni Mohandas Gandhi laban sa pamamahala ng Britain sa India?","Salt March","Sepoy Mutiny","Boxer Rebellion","Digmaang Opyo"],
+["Ano ang Sepoy Mutiny noong 1857?","Armadong pag-aalsa ng mga sundalong Indian laban sa British East India Company","Mapayapang martsa ng mga Indian laban sa buwis sa asin na pinamunuan ni Mohandas Gandhi","Digmaan ng China at Britain dahil sa kalakalan ng opyo","Kasunduang nagbigay ng kalayaan sa India"],
+["Sino ang tinaguriang “El Libertador” na namuno sa paglaya ng ilang bansa sa South America mula sa Spain?","Simon Bolivar","Benito Juarez","Miguel Hidalgo","Napoleon Bonaparte"],
+["Anong bansa sa Asya ang nagsagawa ng Meiji Restoration upang gumawa ng makabagong reporma at maiwasang masakop ng mga Europeo?","Japan","Burma","Vietnam","Korea"],
+["Ano ang Berlin Conference (1884–1885)?","Pagpupulong ng mga bansang Europeo upang paghati-hatian ang Africa nang walang pakikilahok ng mga Aprikano","Pagpupulong ng mga pinunong Aprikano upang magkaisa laban sa mananakop at ipagtanggol ang kanilang mga lupain sa Africa","Kasunduang nagbigay ng kalayaan sa mga bansa sa Africa","Pagpupulong upang wakasan ang Rebolusyong Pranses"],
+["Bakit mahalaga ang pagkakaisa ng mga mamamayan sa paglaban sa imperyalismo?","Mas malakas ang paglaban kapag iisa ang layunin at sabay-sabay ang pagkilos ng mamamayan.","Dahil mas mabilis sumuko ang mga mananakop kapag marami ang nag-aaway-away sa loob ng nasakop na bansa.","Dahil hindi na kailangan ang sariling pamahalaan kapag nagkaisa ang lahat.","Dahil mas madaling tanggapin ang dayuhang pamamahala kapag nagkakaisa."],
+["Ano ang Boxer Rebellion sa China?","Pag-aalsa laban sa impluwensiya at presensiya ng mga dayuhan sa China","Pag-aalsa ng mga Tsino laban sa sarili nilang emperador upang magtatag ng demokrasya","Kasunduang nagbukas sa mga pantalan ng China sa mga Europeo","Digmaan ng China at Japan para sa Korea"],
+["Alin ang halimbawa ng pagpapakita ng nasyonalismo ng isang mamamayan ngayon?","Paggamit ng wikang Filipino at pagsuporta sa mga lokal na produkto","Pagtangkilik lamang sa mga dayuhang produkto at kultura","Pagwawalang-bahala sa mga batas ng bansa","Paglisan nang tuluyan sa bansa upang makaiwas sa mga suliranin at maghanap ng mas magandang buhay sa ibang bansa"],
+["Anong labanan noong 1781 ang naging mapagpasyang tagumpay ng mga Amerikano laban sa Britain sa Rebolusyong Amerikano?","Labanan sa Yorktown","Labanan sa Waterloo","Labanan sa Adwa","Pagbagsak ng Bastille"],
+["Bakit masasabing nakaimpluwensiya ang mga ideya ng Enlightenment sa maraming kilusang makabansa sa daigdig?","Itinuro nito na ang kapangyarihan ay nagmumula sa mamamayan at may karapatan silang maging malaya.","Itinuro nito na dapat laging sundin ng mamamayan ang mga dayuhang mananakop upang maiwasan ang kaguluhan.","Itinuro nito na ang hari lamang ang may karapatang magpasya para sa bayan.","Ipinagbawal nito ang pagpapahalaga sa sariling wika at kultura."],
+["Alin ang tamang paghahambing sa Rebolusyong Amerikano at Rebolusyong Pranses?","Parehong naghangad ng kalayaan at karapatan laban sa mapaniil na pamahalaan, ngunit mas binago ng Pranses ang buong lipunan.","Parehong ipinaglaban ang pagpapanatili ng absolutong monarkiya sa kani-kanilang bansa.","Ang Amerikano ay laban sa sariling hari ng America, samantalang ang Pranses ay laban sa Britain, at kapwa nauwi sa pagtatatag ng monarkiya sa kani-kanilang bansa.","Parehong hindi naimpluwensiyahan ng mga ideya ng Enlightenment."],
+["Batay sa mga halimbawa ng Africa at Asya, bakit hindi sapat ang pananakop lamang upang manatiling matatag ang isang imperyo?","Lumaganap ang nasyonalismo at pagtutol ng mga nasakop na nagnais ng kalayaan.","Dahil laging kusang sumusuko ang mga nasakop pagkalipas ng ilang taon ng pananakop at pamamahala.","Dahil hindi interesado ang mga nasakop sa sarili nilang lupain at kultura.","Dahil walang epekto ang pananakop sa politika at ekonomiya ng mga bansa."]
+];
+
+var app=document.getElementById("app");
+var SEC=60; // 1 minuto bawat tanong
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+var set,idx,score,player=null,timerId=null;
+
+/* ---- Imbakan ng mga pagkuha (sa browser ng device na ito) ---- */
+var mem={};
+function load(){try{var r=localStorage.getItem("ap8_t2_takes");return r?JSON.parse(r):mem}catch(e){return mem}}
+function save(d){mem=d;try{localStorage.setItem("ap8_t2_takes",JSON.stringify(d))}catch(e){}}
+
+function parseName(full){
+  full=full.replace(/\s+/g," ").trim();
+  var last;
+  if(full.indexOf(",")>0){last=full.split(",")[0].trim()}            // "Dela Cruz, Juan"
+  else{var p=full.split(" ");last=p[p.length-1]}                       // "Juan Dela Cruz" -> Cruz
+  return{full:full,last:last,key:full.toLowerCase()};
+}
+function cap(s){return s.replace(/(^|[\s-])(\S)/g,function(m,a,b){return a+b.toUpperCase()})}
+
+/* ---- Simula: hingin ang buong pangalan ---- */
+function home(){
+  app.innerHTML='<div class="card"><h1>Araling Panlipunan 8 – Ikalawang Termino</h1><p class="sub">Pagsusulit (Linggo 3–6) • '+Q.length+' aytem • 1 minuto bawat tanong</p>'
+  +'<p>Basahin nang mabuti ang bawat tanong at piliin ang pinakatamang sagot. Makikita agad kung tama (<b style="color:var(--gr)">berde</b>) o mali (<b style="color:var(--rd)">pula</b>) ang napili mo. May <b>1 minutong timer</b> sa bawat tanong; kapag naubos ang oras, mabibilang itong mali. Ang pagkakasunod-sunod ng mga tanong at pagpipilian ay nagbabago sa bawat pagkuha.</p>'
+  +'<label for="nm"><b>Buong Pangalan</b></label>'
+  +'<input class="inp" id="nm" type="text" autocomplete="name" placeholder="hal. Juan Dela Cruz" value="'+(player?esc(player.full):"")+'">'
+  +'<div class="err" id="er"></div><button class="btn" id="go">Simulan</button></div>';
+  var nm=document.getElementById("nm");
+  function go(){
+    var v=nm.value.replace(/\s+/g," ").trim();
+    if(v.indexOf(",")<0&&v.split(" ").length<2){document.getElementById("er").textContent="Pakilagay ang buong pangalan (pangalan at apelyido).";nm.focus();return}
+    player=parseName(cap(v));start();
+  }
+  document.getElementById("go").onclick=go;
+  nm.onkeydown=function(e){if(e.key==="Enter")go()};
+  nm.focus();
+}
+function start(){
+  set=shuffle(Q).map(function(r){return{q:r[0],c:r[1],o:shuffle(r.slice(1))}});
+  idx=0;score=0;show();
+}
+function fmt(s){var m=Math.floor(s/60),x=s%60;return m+":"+(x<10?"0":"")+x}
+
+function show(){
+  clearInterval(timerId);
+  var it=set[idx],pct=Math.round(idx/set.length*100),answered=false;
+  var h='<div class="card"><div class="meta"><span>Tanong '+(idx+1)+' / '+set.length+'</span><span class="tm" id="tm">⏱ '+fmt(SEC)+'</span><span>Iskor: '+score+'</span></div><div class="bar"><i style="width:'+pct+'%"></i></div><p class="q">'+esc(it.q)+'</p><div id="opts">';
+  it.o.forEach(function(t,i){h+='<button class="opt" data-i="'+i+'">'+esc(t)+'</button>'});
+  h+='</div><div id="to"></div><button class="btn" id="nx" style="display:none">'+(idx==set.length-1?"Tingnan ang Resulta":"Susunod")+'</button></div>';
+  app.innerHTML=h;window.scrollTo(0,0);
+  var btns=app.querySelectorAll(".opt"),nx=document.getElementById("nx"),tm=document.getElementById("tm");
+  function lock(){
+    answered=true;clearInterval(timerId);
+    btns.forEach(function(x){x.disabled=true;if(it.o[+x.dataset.i]===it.c)x.classList.add("ok")});
+    nx.style.display="inline-block";nx.focus();
+    nx.onclick=function(){idx++;idx<set.length?show():finish()};
+  }
+  btns.forEach(function(b){b.onclick=function(){
+    if(answered)return;
+    var ok=it.o[+b.dataset.i]===it.c;
+    if(ok)score++;
+    lock();
+    if(!ok)b.classList.add("no");
+  }});
+  var end=Date.now()+SEC*1000;
+  timerId=setInterval(function(){
+    var left=Math.max(0,Math.ceil((end-Date.now())/1000));
+    tm.textContent="⏱ "+fmt(left);
+    tm.className="tm"+(left<=10?" low":"");
+    if(left<=0&&!answered){
+      lock();
+      document.getElementById("to").innerHTML='<div class="tout">Naubos ang oras! Mabibilang itong mali.</div>';
+    }
+  },250);
+}
+
+/* ---- Resulta ---- */
+function finish(){
+  clearInterval(timerId);
+  var p=Math.round(score/set.length*100);
+  var d=load();
+  var rec=d[player.key]||{full:player.full,last:player.last,scores:[]};
+  rec.full=player.full;rec.last=player.last;
+  rec.scores.push(score);
+  d[player.key]=rec;save(d);
+  var n=rec.scores.length;
+
+  var hist=rec.scores.map(function(s,i){return'<tr'+(i==n-1?' class="me"':'')+'><td>'+(i+1)+'</td><td>'+s+' / '+set.length+'</td><td>'+Math.round(s/set.length*100)+'%</td></tr>'}).join("");
+
+  var all=Object.keys(d).map(function(k){return d[k]}).sort(function(a,b){return a.last.localeCompare(b.last)||a.full.localeCompare(b.full)});
+  var rows=all.map(function(r){
+    var last=r.scores[r.scores.length-1],best=Math.max.apply(null,r.scores);
+    return'<tr'+(r.full.toLowerCase()===player.key?' class="me"':'')+'><td>'+esc(r.last)+'</td><td>'+r.scores.length+'</td><td>'+last+' / '+set.length+'</td><td>'+best+' / '+set.length+'</td></tr>';
+  }).join("");
+
+  app.innerHTML='<div class="card" style="text-align:center"><h1>Tapos na ang Pagsusulit!</h1>'
+  +'<p class="sub">Apelyido: <b>'+esc(player.last)+'</b> ('+esc(player.full)+')</p>'
+  +'<div class="big">'+score+' / '+set.length+'</div><p class="sub">'+p+'% ang tamang sagot • Pagkuha bilang <b>'+n+'</b></p>'
+  +'<h2>Mga Pagkuha ni '+esc(player.last)+'</h2><div class="tw"><table><tr><th>Pagkuha</th><th>Iskor</th><th>Porsiyento</th></tr>'+hist+'</table></div>'
+  +'<h2>Lahat ng Kumuha (sa device na ito)</h2><div class="tw"><table><tr><th>Apelyido</th><th>Ilang Beses Kumuha</th><th>Huling Iskor</th><th>Pinakamataas</th></tr>'+rows+'</table></div>'
+  +'<p style="margin-top:18px"><button class="btn" id="re">Kunin Muli (Halo-halo ang Tanong)</button><button class="btn btn2" id="nw">Ibang Kumukuha</button></p></div>';
+  document.getElementById("re").onclick=start;
+  document.getElementById("nw").onclick=function(){player=null;home()};
+}
+home();
+</script>
+</body>
+</html>
